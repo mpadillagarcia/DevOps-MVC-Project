@@ -1,0 +1,61 @@
+﻿@model Exchange.Models.Criptomoneda
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Criptomoneda</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ID" />
+            <div class="form-group">
+                <label asp-for="Nombre" class="control-label"></label>
+                <input asp-for="Nombre" class="form-control" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Precio" class="control-label"></label>
+                <input asp-for="Precio" class="form-control" />
+                <span asp-validation-for="Precio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PorcentajeVariacion" class="control-label"></label>
+                <input asp-for="PorcentajeVariacion" class="form-control" />
+                <span asp-validation-for="PorcentajeVariacion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Capitalizacion" class="control-label"></label>
+                <input asp-for="Capitalizacion" class="form-control" />
+                <span asp-validation-for="Capitalizacion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NombreRed" class="control-label"></label>
+                <input asp-for="NombreRed" class="form-control" />
+                <span asp-validation-for="NombreRed" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CantidadAComprar" class="control-label"></label>
+                <input asp-for="CantidadAComprar" class="form-control" />
+                <span asp-validation-for="CantidadAComprar" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CantidadAVender" class="control-label"></label>
+                <input asp-for="CantidadAVender" class="form-control" />
+                <span asp-validation-for="CantidadAVender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

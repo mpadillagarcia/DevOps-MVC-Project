@@ -1,0 +1,208 @@
+﻿@model Exchange.Models.PrestamoViewModels.PrestamoCreateViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+
+
+<h2>Create</h2>
+
+
+<form asp-action="Create" method="post">
+
+    <div class="form-horizontal">
+        <h4>Prestamo</h4>
+        <hr />
+        <div class="container">
+            <div class="row">
+                <div class="col-2 font-weight-bold">
+                    @Html.DisplayNameFor(model => model.Nombre)
+                </div>
+                <div class="col-8">
+                    @Html.DisplayFor(model => model.Nombre)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2 font-weight-bold">
+                    @Html.DisplayNameFor(model => model.PrimerApellido)
+                </div>
+                <div class="col-8">
+                    @Html.DisplayFor(model => model.PrimerApellido)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2 font-weight-bold">
+                    @Html.DisplayNameFor(model => model.SegundoApellido)
+                </div>
+                <div class="col-8">
+                    @Html.DisplayFor(model => model.SegundoApellido)
+                </div>
+            </div>
+        </div>
+
+        <input asp-for="ClienteId" type="hidden" class="form-control" />
+
+
+        <div id="ModelErrors" asp-validation-summary="ModelOnly" class="text-danger">
+        </div>
+        <span class="col-md-10">
+            <span asp-validation-for="PrestamoItems" class="text-danger"></span>
+        </span>
+        <table class="table">
+
+            <thead>
+                <tr>
+                    <th width="50%">
+                        Nombre
+                    </th>
+                    <th>
+                        Precio
+                    </th>
+                    <th>
+                        Red
+                    </th>
+                    <th>
+                        PorcentajeVariacion
+                    </th>
+                    <th>
+                        Capitalizacion
+                    </th>
+                    <th>
+                        Cantidad
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.PrestamoItems.Count() == 0)
+                {
+                    <tr><td colspan="3">There are no criptomonedas available</td></tr>
+                }
+                else
+                {
+                    @for (int i = 0; i < Model.PrestamoItems.Count; i++)
+                    {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.PrestamoItems[i].Nombre)
+                </td>
+                <td>
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => Model.PrestamoItems[i].Precio)
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => Model.PrestamoItems[i].Red)
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => Model.PrestamoItems[i].PorcentajeVariacion)
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        @Html.DisplayFor(modelItem => Model.PrestamoItems[i].Capitalizacion)
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        <input asp-for="PrestamoItems[i].CriptomonedaId" type="hidden" class="form-control" />
+                        <input asp-for="PrestamoItems[i].Precio" type="hidden" class="form-control" />
+                        <input asp-for="PrestamoItems[i].Nombre" type="hidden" class="form-control" />
+                        <input asp-for="PrestamoItems[i].Red" type="hidden" class="form-control" />
+                        <input asp-for="PrestamoItems[i].PorcentajeVariacion" type="hidden" class="form-control" />
+                        <input asp-for="PrestamoItems[i].Capitalizacion" type="hidden" class="form-control" />
+                        <input asp-for="PrestamoItems[i].Cantidad" id="Criptomoneda_Cantidad_@Model.PrestamoItems[i].CriptomonedaId" class="form-control" />
+                        <span asp-validation-for="PrestamoItems[i].Cantidad" class="text-danger" />
+
+                    </div>
+
+                </td>
+            </tr>
+                    }
+                }
+            </tbody>
+        </table>
+
+        @* this code needs the script defined in site.js *@
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default ">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <label for='r11' style='width: 350px;'>
+                            @* <input type='radio' id='r11' name='MetodoPago' value='TarjetaCredito' required checked /> Credit Card*@
+                            <input type='radio' id='r11' asp-for='MetodoPago' value='TarjetaCredito' required /> Credit Card
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"></a>
+                        </label>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse ">
+                    <div class="panel-body row">
+                        <div class="col-md-4">
+                            <label asp-for="NumeroTarjeta" class="control-label"></label>
+                            <input asp-for="NumeroTarjeta" class="form-control" size="20" />
+                            <span asp-validation-for="NumeroTarjeta" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-1">
+                            <label asp-for="CVV" class="control-label"></label>
+                            <input asp-for="CVV" class="form-control" size="3" />
+                            <span asp-validation-for="CVV" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-2">
+                            <label asp-for="FechaCaducidad" class="control-label"></label>
+                            <input asp-for="FechaCaducidad" class="form-control" />
+                            <span asp-validation-for="FechaCaducidad" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class=panel-title>
+                        <label for='r12' style='width: 350px;'>
+                            @*<input type='radio' id='r12' name='MetodoPago' value='PayPal' required /> PayPal*@
+                            <input type='radio' id='r12' asp-for='MetodoPago' value='PayPal' required /> PayPal
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"></a>
+                        </label>
+                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse">
+                    <div class="panel-body row">
+                        <div class="col-md-4">
+                            <label asp-for="Email" class="control-label"></label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-1">
+                            <label asp-for="Prefijo" class="control-label"></label>
+                            <input asp-for="Prefijo" class="form-control" />
+                            <span asp-validation-for="Prefijo" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-2">
+                            <label asp-for="Tlf" class="control-label"></label>
+                            <input asp-for="Tlf" class="form-control" />
+                            <span asp-validation-for="Tlf" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" id="CreateButton" value="Create" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

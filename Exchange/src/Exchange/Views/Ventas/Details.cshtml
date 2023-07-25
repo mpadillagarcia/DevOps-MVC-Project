@@ -1,0 +1,103 @@
+﻿@model Exchange.Models.Venta
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Venta</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaVenta)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FechaVenta)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Cliente)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ClienteId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Cliente.Nombre)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Cliente.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cliente.PrimerApellido)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Cliente.PrimerApellido)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Cliente.SegundoApellido)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Cliente.SegundoApellido)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EquivEuros)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EquivEuros)
+        </dd>
+
+
+    </dl>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Nombre
+                </th>
+                <th>
+                    Precio
+                </th>
+                <th>
+                    Capitalización
+                </th>
+                <th>
+                    % Variación 24h
+                </th>
+                <th>
+                    Cantidad Venta
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.MonedasVendidas.Count; i++)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.MonedasVendidas.ElementAt<MonedaVendida>(i).Criptomoneda.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.MonedasVendidas.ElementAt<MonedaVendida>(i).Criptomoneda.Precio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.MonedasVendidas.ElementAt<MonedaVendida>(i).Criptomoneda.Capitalizacion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.MonedasVendidas.ElementAt<MonedaVendida>(i).Criptomoneda.PorcentajeVariacion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.MonedasVendidas.ElementAt<MonedaVendida>(i).CantidadVenta)
+                </td>
+            </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.VentaId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

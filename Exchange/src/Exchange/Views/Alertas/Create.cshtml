@@ -1,0 +1,146 @@
+﻿@model Exchange.Models.AlertaViewModels.AlertaCreateViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+
+
+<h2>Creación de la alerta</h2>
+
+
+<form asp-action="Create" method="post">
+
+    <div class="form-horizontal">
+        <h5>Introduzca una fecha de expiración para la alerta y un precio de alerta para cada criptomoneda</h5>
+        <hr />
+        <div class="container">
+            <h6 style="color: #2D2DE8">Datos del cliente</h6>
+            <div class="row">
+                <div class="col-2 font-weight-bold">
+                    <th>Nombre</th>
+                </div>
+                <div class="col-8">
+                    @Html.DisplayFor(model => model.Nombre)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2 font-weight-bold">
+                    <th>Primer apellido</th>
+                </div>
+                <div class="col-8">
+                    @Html.DisplayFor(model => model.PrimerApellido)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2 font-weight-bold">
+                    <th>Segundo apellido</th>
+                </div>
+                <div class="col-8">
+                    @Html.DisplayFor(model => model.SegundoApellido)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2 font-weight-bold">
+                    <th>Fecha de creación</th>
+                </div>
+                <div class="col-8">
+                    @{
+                        var now = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
+
+                    }
+                    @now
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2 font-weight-bold">
+                    <th>Fecha de expiración</th>
+                </div>
+                <div class="col-8">
+                    @Html.TextBoxFor(model => model.FechaExpira, new { type = "date"})
+
+                </div>
+            </div>
+
+        </div>
+
+        <input asp-for="ClienteId" type="hidden" class="form-control" />
+
+
+        <div id="ModelErrors" asp-validation-summary="ModelOnly" class="text-danger">
+        </div>
+        <span class="col-md-10">
+            <span asp-validation-for="MonedaAlertar" class="text-danger"></span>
+        </span>
+        <table class="table">
+
+            <thead>
+                <tr>
+                    <th width="15%">
+                        Nombre
+                    </th>
+                    <th width="15%">
+                        Precio actual
+                    </th>
+                    <th>
+                        Precio de alerta
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.MonedaAlertar.Count() == 0)
+                {
+                    <tr><td colspan="3">No hay criptomonedas disponibles</td></tr>
+                }
+                else
+                {
+                    @for (int i = 0; i < Model.MonedaAlertar.Count; i++)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => Model.MonedaAlertar[i].Nombre)
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    @Html.DisplayFor(modelItem => Model.MonedaAlertar[i].Precio)
+
+                                </div>
+                            </td>
+                            <td>
+                                <div class="row">
+                                    <input asp-for="MonedaAlertar[i].ID" type="hidden" class="form-control" id="NoCriptomonedas"/>
+                                    <input asp-for="MonedaAlertar[i].Precio" type="hidden" class="form-control" />
+                                    <input asp-for="MonedaAlertar[i].Nombre" type="hidden" class="form-control" />
+                                    <input asp-for="MonedaAlertar[i].NombreRed" type="hidden" class="form-control" />
+                                    <div class="col-3">
+                                        <input asp-for="MonedaAlertar[i].PrecioAlerta" id="Criptomoneda_PrecioAlerta_@Model.MonedaAlertar[i].ID" class="form-control"/>
+                                        <span asp-validation-for="MonedaAlertar[i].PrecioAlerta" class="text-danger" />
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+
+        
+        
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit"  id="CreateButton" value="Create" class="btn btn-primary"/>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

@@ -1,0 +1,105 @@
+﻿@model Exchange.Models.Prestamo
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Prestamo</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FechaPrestamo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FechaPrestamo)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TasaInteres)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TasaInteres)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Cliente)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Cliente.Id)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Cliente.Nombre)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Cliente.Nombre)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Cliente.PrimerApellido)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Cliente.PrimerApellido)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Cliente.SegundoApellido)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Cliente.SegundoApellido)
+        </dd>
+
+    </dl>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Nombre
+                </th>
+                <th>
+                    Precio
+                </th>
+                <th>
+                    Red
+                </th>
+                <th>
+                    PorcentajeVariacion
+                </th>
+                <th>
+                    Capitalizacion
+                </th>
+                <th>
+                    Cantidad
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.MonedasPrestadas.Count; i++)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.MonedasPrestadas.ElementAt<MonedaPrestada>(i).Criptomoneda.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.MonedasPrestadas.ElementAt<MonedaPrestada>(i).Criptomoneda.Precio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.MonedasPrestadas.ElementAt<MonedaPrestada>(i).Criptomoneda.Red.nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.MonedasPrestadas.ElementAt<MonedaPrestada>(i).Criptomoneda.PorcentajeVariacion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.MonedasPrestadas.ElementAt<MonedaPrestada>(i).Criptomoneda.Capitalizacion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.MonedasPrestadas.ElementAt<MonedaPrestada>(i).Cantidad)
+                </td>
+            </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.PrestamoID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

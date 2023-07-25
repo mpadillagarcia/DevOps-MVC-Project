@@ -1,0 +1,84 @@
+﻿@model Exchange.Models.Alerta
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Alerta</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Cliente.Nombre)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Cliente.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cliente.PrimerApellido)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Cliente.PrimerApellido)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Cliente.SegundoApellido)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Cliente.SegundoApellido)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaAlerta)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FechaAlerta)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaExpira)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FechaExpira)
+        </dd>
+
+
+    </dl>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Nombre
+                </th>
+                <th>
+                    Precio
+                </th>
+                <th>
+                    Precio Alerta
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.MonedaAlertar.Count; i++)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.MonedaAlertar.ElementAt<MonedaAlerta>(i).Criptomoneda.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.MonedaAlertar.ElementAt<MonedaAlerta>(i).Criptomoneda.Precio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.MonedaAlertar.ElementAt<MonedaAlerta>(i).PrecioAlerta)
+                </td>
+            </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

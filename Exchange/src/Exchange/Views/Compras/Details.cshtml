@@ -1,0 +1,94 @@
+﻿@model Exchange.Models.Compra
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Compra</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Cliente.Nombre)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Cliente.Nombre)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Cliente.PrimerApellido)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Cliente.PrimerApellido)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Cliente.SegundoApellido)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Cliente.SegundoApellido)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CompraFecha)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CompraFecha)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PrecioTotal)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PrecioTotal)
+        </dd>
+
+    </dl>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Nombre
+                </th>
+                <th>
+                    Precio
+                </th>
+                <th>
+                    Capitalizacion
+                </th>
+                <th>
+                    % Variacion
+                </th>
+                <th>
+                    Cantidad a Comprar
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.CompraItems.Count; i++)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.CompraItems.ElementAt<CompraItem>(i).Criptomoneda.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.CompraItems.ElementAt<CompraItem>(i).Criptomoneda.Precio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.CompraItems.ElementAt<CompraItem>(i).Criptomoneda.Capitalizacion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.CompraItems.ElementAt<CompraItem>(i).Criptomoneda.PorcentajeVariacion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.CompraItems.ElementAt<CompraItem>(i).Cantidad)
+                </td>
+            </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.CompraId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -1,0 +1,95 @@
+﻿@* model storing which data will be rendered by the View *@
+@model Exchange.Models.CriptomonedaViewModels.CriptomonedasParaVenderViewModel
+@{
+    ViewData["Title"] = "Selecciona Criptomonedas";
+}
+
+<h2>Vender Criptomonedas</h2>
+@* Form to fill in the filters to be used *@
+<form asp-controller="Criptomonedas" class="form-horizontal">
+    <p>
+        <div>
+            <label asp-for="NombreMoneda"></label>
+            <input asp-for="NombreMoneda" size="50" />
+            <span asp-validation-for="NombreMoneda" class="text-danger"></span>
+            <br>
+
+            <label asp-for="Capitalizacion"></label>
+            <input asp-for="Capitalizacion" size="50" />
+            <span asp-validation-for="Capitalizacion" class="text-danger"></span>
+            <br>
+
+            <label asp-for="PorcentajeVariacion"></label>
+            <input type=number step=0.01 asp-for="PorcentajeVariacion" size="50" />
+            <span asp-validation-for="PorcentajeVariacion" class="text-danger"></span>
+            <br>
+
+            <label asp-for="RedMonedaSeleccionada"></label>
+            <select asp-for="RedMonedaSeleccionada" asp-items="Model.Redes">
+                <option value="">All</option>
+            </select>
+            <input id="filterbyNombreRed" asp-action="SeleccionMonedasParaVender" type="submit" value="Filter" formmethod="get" />
+        </div>
+    </p>
+
+    <div id="ModelErrors" asp-validation-summary="All" class="text-danger">@TempData["Error"]</div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th width="50%">
+                    Nombre
+                </th>
+                <th>
+                    Precio
+                </th>
+                <th>
+                    Red
+                </th>
+                <th>
+                    Capitalizacion
+                </th>
+                <th>
+                    PorcentajeVariacion
+                </th>
+                <th align="center" width="10%">
+                    Selecciona Criptomoneda
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Criptomonedas.Count() == 0)
+            {
+                <tr><td id="NoCriptomonedas" colspan="3">No hay criptomonedas disponibles</td></tr>
+            }
+            else
+            {
+                @foreach (var item in Model.Criptomonedas)
+                {
+                    <tr id="Criptomoneda_Nombre_@item.Nombre">
+                        <td width="50%">
+                            @Html.DisplayFor(modelItem => item.Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Precio)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Red.nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Capitalizacion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PorcentajeVariacion)
+                        </td>
+                        <td align="center" width="10%">
+                            <input type="checkbox" name="IdsToAdd" id="Criptomoneda_@item.ID" value="@item.ID" class="form-control">
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <button id="nextButton" asp-action="SeleccionMonedasParaVender" type="submit" class="btn btn-primary" formmethod="post">Next</button>
+    <a asp-action="SeleccionMonedasParaVender" class="btn btn-default">Cancel</a>
+</form>

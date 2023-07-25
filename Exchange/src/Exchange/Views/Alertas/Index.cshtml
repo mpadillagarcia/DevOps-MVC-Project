@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Exchange.Models.Alerta>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Índice</h1>
+
+<p>
+    @* Change the link *@
+    <a asp-action="SeleccionCriptomonedasParaAlerta" asp-controller="Criptomonedas" id="SeleccionCriptomonedasParaAlerta">Crear Nueva</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaAlerta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaExpira)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cliente.Nombre)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaAlerta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaExpira)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente.Nombre)
+                @Html.DisplayFor(modelItem => item.Cliente.PrimerApellido)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
